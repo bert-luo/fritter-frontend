@@ -52,8 +52,15 @@
       Posted at {{ freet.dateModified }}
       <i v-if="freet.edited">(edited)</i>
     </p>
-    <button >
+    <button 
+          v-if="!liked"
+          @click="likeFreet">
           ❤️ Like
+    </button>
+    <button 
+          v-if="liked"
+          @click="unlikeFreet">
+          :( unlike
     </button>
     <section class="alerts">
       <article
@@ -89,11 +96,13 @@ export default {
       /**
        * current user likes Freet
        */
+      this.liked = true; 
     },
     unlikeFreet(){
       /**
        * current user unlikes Freet
        */
+      this.liked = false;
     },
     startEditing() {
       /**
