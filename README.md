@@ -1,6 +1,9 @@
 # Fritter Frontend
 Congrats, you've completed the Fritter backend! Now it's time to make an interface that your users will be able to interact with in A6: Fritter frontend. **Make sure to read this document fully** as well, as it contains a lot of A6-specific info!
 
+## Deployment Link: 
+fritter-frontend-cc3irp42a-bert-luo.vercel.app 
+
 ## Starter Code
 
 This starter code implements freets, feeds, and forms with no styling. The backend starter code for freets and users from the previous assignment (A5) is contained in the `server` folder. The frontend starter code is in the `client` folder and is implemented using the [Vue](https://v2.vuejs.org/) framework.

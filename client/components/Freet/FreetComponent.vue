@@ -52,6 +52,9 @@
       Posted at {{ freet.dateModified }}
       <i v-if="freet.edited">(edited)</i>
     </p>
+    <button >
+          ❤️ Like
+    </button>
     <section class="alerts">
       <article
         v-for="(status, alert, index) in alerts"
@@ -82,6 +85,16 @@ export default {
     };
   },
   methods: {
+    likeFreet(){
+      /**
+       * current user likes Freet
+       */
+    },
+    unlikeFreet(){
+      /**
+       * current user unlikes Freet
+       */
+    },
     startEditing() {
       /**
        * Enables edit mode on this freet.
