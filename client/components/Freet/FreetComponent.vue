@@ -84,8 +84,10 @@ export default {
       required: true
     }
   },
+  beforeCreate(){}, // make fetches here
   data() {
     return {
+      liked: false, 
       editing: false, // Whether or not this freet is in edit mode
       draft: this.freet.content, // Potentially-new content for this freet
       alerts: {} // Displays success/error messages encountered during freet modification
@@ -97,6 +99,7 @@ export default {
        * current user likes Freet
        */
       this.liked = true; 
+
     },
     unlikeFreet(){
       /**
