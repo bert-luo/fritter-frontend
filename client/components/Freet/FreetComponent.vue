@@ -53,20 +53,13 @@
       <i v-if="freet.edited">(edited)</i>
     </p>
 
-    <button 
-          v-if="!liked"
-          @click="likeFreet">
-          ❤️ Like
-    </button>
-    <button 
-          v-if="liked"
-          @click="unlikeFreet">
-          :( unlike
-    </button>
-    
-    <InteractionBar
-          :freet="freet"
-        />
+     <section class="footer">
+        <InteractionBar
+            
+            :freetId="freet._id"
+          />
+          
+      </section>
 
     <section class="alerts">
       <article
@@ -77,6 +70,7 @@
         <p>{{ alert }}</p>
       </article>
     </section>
+
   </article>
 </template>
 
@@ -97,7 +91,7 @@ export default {
   beforeCreate(){ // make fetches here
 
   }, 
-  
+
   data() {
     return {
       //liked: false, // whether freet has been liked by current user 

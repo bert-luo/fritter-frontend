@@ -5,6 +5,9 @@ import * as userValidator from '../user/middleware';
 import * as freetValidator from '../freet/middleware';
 import * as util from './util';
 
+import LikeCollection from '../like/collection';
+
+
 const router = express.Router();
 
 /**

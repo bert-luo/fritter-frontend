@@ -1,5 +1,5 @@
 <template>
-    <div
+    <section
     class="bar"
   >
         <button 
@@ -16,7 +16,7 @@
         <p class="likecount">
             {{ numlikes }}
         </p>
-    </div>
+    </section>
 </template>
 
 
@@ -25,8 +25,8 @@ export default {
   name: 'InteractionBar',
   props: {
     // Data from the stored freet
-    freet: {
-      type: Object,
+    freetId: {
+      type: String,
       required: true
     }
   },
@@ -61,7 +61,7 @@ data() {
        */
       this.liked = false;
       this.numLikes -= 1;
-      
+
     },
   }
 }
