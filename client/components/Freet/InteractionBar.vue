@@ -1,21 +1,18 @@
 <template>
-    <section
-    class="bar"
-  >
+    <section>
         <button 
-            v-if="!liked"
+            v-if="!likedState"
             @click="likeFreet">
             ❤️ Like
         </button>
         <button 
-            v-if="liked"
+            v-if="likedState"
             @click="unlikeFreet">
             :( unlike
         </button>
         
-        <p class="likecount">
-            {{ this.numlikes }}
-        </p>
+        {{ numLikesState }}
+    
     </section>
 </template>
 
@@ -39,18 +36,11 @@ export default {
     }
   },
 
-beforeCreate(){
-    // get num likes??
-    const url =  `/api/like/${state}/freets`; //update
-    const res = await fetch(url).then(async r => r.json());
-    //allLikes = res;
-
-  },
 
 data() {
     return {
-      liked: False,//liked, // whether freet has been liked by current user 
-      numLikes: 69//numLikes //allLikes.length // total number of likes on post 
+      likedState: false, //this.liked, //liked, // whether freet has been liked by current user 
+      numLikesState: 0//this.numLikes //numLikes //allLikes.length // total number of likes on post 
     };
   },
 
@@ -59,16 +49,18 @@ data() {
       /**
        * current user likes Freet
        */
-      this.liked = true; 
-      this.numLikes += 1; 
+      console.log("liked");
+      this.likedState = true; 
+      this.numLikesState += 1; 
 
     },
     unlikeFreet(){
       /**
        * current user unlikes Freet
        */
-      this.liked = false;
-      this.numLikes -= 1;
+      console.log("unliked");
+      this.likedState = false;
+      this.numLikesState -= 1;
 
     },
   }

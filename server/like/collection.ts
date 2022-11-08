@@ -75,7 +75,7 @@ class LikeCollection {
    */
  static async findAll(freetId: Types.ObjectId | string): Promise<Array<HydratedDocument<Like>>> {
   const freet = FreetCollection.findOne(freetId); 
-  return LikeModel.find({parentPost: freet}).populate('user');
+  return LikeModel.find({parentPost: freetId}).populate('user');
 }
 
   /**

@@ -12,6 +12,13 @@ import type {Freet} from '../freet/model';
 // Type definition for Like on the backend
 export type Like = {
   _id: Types.ObjectId; // MongoDB assigns each object this ID on creation
+  user: Types.ObjectId;
+  parentPost:  Types.ObjectId; 
+  dateLiked: Date;
+};
+
+export type PopulatedLike = {
+  _id: Types.ObjectId; // MongoDB assigns each object this ID on creation
   user: User;
   parentPost:  Freet; 
   dateLiked: Date;
