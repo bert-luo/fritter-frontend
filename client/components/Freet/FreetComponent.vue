@@ -52,6 +52,7 @@
       Posted at {{ freet.dateModified }}
       <i v-if="freet.edited">(edited)</i>
     </p>
+
     <button 
           v-if="!liked"
           @click="likeFreet">
@@ -62,6 +63,11 @@
           @click="unlikeFreet">
           :( unlike
     </button>
+    
+    <InteractionBar
+          :freet="freet"
+        />
+
     <section class="alerts">
       <article
         v-for="(status, alert, index) in alerts"
@@ -75,7 +81,11 @@
 </template>
 
 <script>
+
+import InteractionBar from './InteractionBar.vue';
+
 export default {
+  components: { InteractionBar },
   name: 'FreetComponent',
   props: {
     // Data from the stored freet
@@ -84,10 +94,13 @@ export default {
       required: true
     }
   },
-  beforeCreate(){}, // make fetches here
+  beforeCreate(){ // make fetches here
+
+  }, 
+  
   data() {
     return {
-      liked: false, 
+      //liked: false, // whether freet has been liked by current user 
       editing: false, // Whether or not this freet is in edit mode
       draft: this.freet.content, // Potentially-new content for this freet
       alerts: {} // Displays success/error messages encountered during freet modification

@@ -10,7 +10,17 @@ import * as util from './util';
 
 const router = express.Router();
 
-
+router.get(
+  '/',
+  async (req: Request, res: Response) => {
+    const FreetId = (req.body.freetId as string) ?? ''; //should be query parameter
+    const likes = await LikeCollection.findAll(FreetId); // modify get all freets route: likecount bool liked
+    res.status(200).json({
+      message: 'Here are all likes for the given Freet',
+      result: likes
+    });
+  }
+)
 
 /**
  * Create a new Like / like a Freet .

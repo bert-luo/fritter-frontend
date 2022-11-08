@@ -45,7 +45,7 @@ const store = new Vuex.Store({
        */
       state.freets = freets;
     },
-    async refreshFreets(state) {
+    async refreshFreets(state) { //likes too
       /**
        * Request the server for the currently available freets.
        */

@@ -21,6 +21,7 @@
         </h3>
       </article>
     </section>
+    
     <section>
       <header>
         <div class="left">
@@ -68,6 +69,7 @@ export default {
   components: {FreetComponent, GetFreetsForm, CreateFreetForm},
   mounted() {
     this.$refs.getFreetsForm.submit();
+    //
   }
 };
 </script>

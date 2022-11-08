@@ -68,6 +68,17 @@ class LikeCollection {
   }
 
   /**
+   * Find all likes for a certain freet
+   *
+   * @param {string} freetId - The id of the Freet that was liked
+   * @return {Promise<HydratedDocument<Like>> | Promise<null> } - The freet with the given freetId, if any
+   */
+ static async findAll(freetId: Types.ObjectId | string): Promise<Array<HydratedDocument<Like>>> {
+  const freet = FreetCollection.findOne(freetId); 
+  return LikeModel.find({parentPost: freet}).populate('user');
+}
+
+  /**
    * Delete a Like with given likeId.
    *
    * @param {string} likeId - The freetId of freet to delete

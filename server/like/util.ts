@@ -5,7 +5,7 @@ import type {Like} from './model';
 // Update this if you add a property to the Freet type!
 type LikeResponse = {
     userId: String;
-    //parentPostId:  String; 
+    parentPostId:  String; 
     dateLiked: Date;
 };
 
@@ -26,7 +26,7 @@ const constructLikeResponse = (like: HydratedDocument<Like>): LikeResponse => {
   
   return {
     userId: likeCopy.user.username, 
-    //parentPostId: likeCopy.parentPost._id, 
+    parentPostId: String(likeCopy.parentPost._id), 
     dateLiked: likeCopy.dateLiked
   };
 };
