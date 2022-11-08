@@ -90,7 +90,7 @@ export default {
       required: true
     }
   },
-  async beforeCreate(){ // make fetches here
+  async mounted(){ // make fetches here
     await Promise.all([this.getLikes()]);
   }, 
 

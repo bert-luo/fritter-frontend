@@ -49,8 +49,8 @@ beforeCreate(){
 
 data() {
     return {
-      liked: liked, // whether freet has been liked by current user 
-      numLikes: numLikes //allLikes.length // total number of likes on post 
+      liked: False,//liked, // whether freet has been liked by current user 
+      numLikes: 69//numLikes //allLikes.length // total number of likes on post 
     };
   },
 
