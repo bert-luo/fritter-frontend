@@ -14,7 +14,7 @@
         </button>
         
         <p class="likecount">
-            {{ numlikes }}
+            {{ this.numlikes }}
         </p>
     </section>
 </template>
@@ -27,6 +27,14 @@ export default {
     // Data from the stored freet
     freetId: {
       type: String,
+      required: true
+    },
+    liked: {
+      type: Boolean,
+      required: true
+    },
+    numLikes: {
+      type: Number,
       required: true
     }
   },
@@ -41,8 +49,8 @@ beforeCreate(){
 
 data() {
     return {
-      liked: false, // whether freet has been liked by current user 
-      numLikes: 0 //allLikes.length // total number of likes on post 
+      liked: liked, // whether freet has been liked by current user 
+      numLikes: numLikes //allLikes.length // total number of likes on post 
     };
   },
 

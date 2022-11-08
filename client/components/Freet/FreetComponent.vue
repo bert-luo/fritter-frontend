@@ -57,8 +57,10 @@
         <InteractionBar
             
             :freetId="freet._id"
+            :liked="liked"
+            :numLikes="numLikes"
           />
-          
+
       </section>
 
     <section class="alerts">
@@ -89,31 +91,29 @@ export default {
     }
   },
   beforeCreate(){ // make fetches here
-
+    await Promise.all([this.getLikes()]);
   }, 
 
   data() {
     return {
-      //liked: false, // whether freet has been liked by current user 
+      liked: false, // whether freet has been liked by current user 
+      numLikes: 0, 
       editing: false, // Whether or not this freet is in edit mode
       draft: this.freet.content, // Potentially-new content for this freet
       alerts: {} // Displays success/error messages encountered during freet modification
     };
   },
   methods: {
-    likeFreet(){
+    async getLikes() {
       /**
-       * current user likes Freet
+       * Retrieve number of likes on Freet and if the user has liked the freet yet
        */
-      this.liked = true; 
+      const url = `/api/likes/${this.freet._id}`;
+      const likes = await fetch(url).then(async r => r.json());
+      this.numLikes = likes.length
+      this.liked = this.$store.state.username && likes.some((like) => like.username == this.$store.state.username);
+    }, 
 
-    },
-    unlikeFreet(){
-      /**
-       * current user unlikes Freet
-       */
-      this.liked = false;
-    },
     startEditing() {
       /**
        * Enables edit mode on this freet.
