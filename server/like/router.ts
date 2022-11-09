@@ -43,7 +43,7 @@ router.post(
   ],
   async (req: Request, res: Response) => {
     const userId = (req.session.userId as string) ?? ''; // Will not be an empty string since its validated in isUserLoggedIn
-    const like = await LikeCollection.addOne(req.body.freetId, userId);
+    const like = await LikeCollection.addOne(req.params.freetId, userId);
     res.status(201).json({
       message: 'You have successfully liked this Freet.',
       freet: util.constructLikeResponse(like)
@@ -70,7 +70,7 @@ router.delete(
   ],
   async (req: Request, res: Response) => {
     const userId = (req.session.userId as string) ?? ''; // Will not be an empty string since its validated in isUserLoggedIn
-    const like = await LikeCollection.addOne(req.body.freetId, userId);
+    const like = await LikeCollection.addOne(req.params.freetId, userId);
     const unlike = await LikeCollection.deleteOne(like._id);
     res.status(200).json({
       message: 'You have successfully unliked this Freet.'

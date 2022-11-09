@@ -111,8 +111,9 @@ export default {
       const url = `/api/likes/${this.freet._id}`;
       const likes = await fetch(url).then(async r => r.json());
       console.log(likes);
+      //this.$store.commit("method", likes)
       this.numLikes = likes.length;
-      this.liked = false; //this.$store.state.username && likes.some((like) => like.username == this.$store.state.username);
+      this.liked = false; //this.$store.state.username && likes.result.some((likeId) => like.username == this.$store.state.username);
     }, 
 
     startEditing() {
