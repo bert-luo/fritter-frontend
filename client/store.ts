@@ -13,7 +13,11 @@ const store = new Vuex.Store({
     freets: [], // All freets created in the app
     username: null, // Username of the logged in user
     alerts: {}, // global success/error messages encountered during submissions to non-visible forms
-    likes: [] // indiciates which freets the user has liked 
+    likes: [], // indiciates which freets the user has liked 
+
+    userFilter: null, 
+    usersShown: []
+
   },
   mutations: {
     alert(state, payload) {
@@ -55,6 +59,7 @@ const store = new Vuex.Store({
       state.freets = res;
     },
     
+    // LIKES 
     updateLikes(state, likes) {
       /**
        * Update the stored freets to the provided freets.
@@ -69,8 +74,27 @@ const store = new Vuex.Store({
       const url = state.filter ? `/api/users/${state.filter}/freets` : '/api/freets';
       const res = await fetch(url).then(async r => r.json());
       state.freets = res;
-    }
+    },
+
+    // FOLLOWS 
+    updateUserFilter(state, userFilter) {
+      /**
+       * Update the stored freets filter to the specified one.
+       * @param userFilter - Username of the user to fitler freets by
+       */
+      state.userFilter = userFilter;
+    },
+    async refreshUsersShown(state) { //TODO: update 
+      /**
+       * Request the server for the currently available users.
+       */
+      const url = state.filter ? `/api/users/${state.filter}/freets` : '/api/freets';
+      const res = await fetch(url).then(async r => r.json());
+      state.freets = res;
+    },
   },
+
+  
   // Store data across page refreshes, only discard on browser close
   plugins: [createPersistedState()]
 });

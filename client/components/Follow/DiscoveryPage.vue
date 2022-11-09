@@ -4,7 +4,7 @@
       <header>
         <h2>Welcome @{{ $store.state.username }}</h2>
       </header>
-      <CreateFreetForm />
+      view vollowing button here maybe  
     </section>
     <section v-else>
       <header>
@@ -19,40 +19,78 @@
         </h3>
       </article>
     </section>
-    
+
+    <!-- Body starts here -->
     <section>
       <header>
         <div class="left">
           <h2>
-            Viewing all freets
+            Viewing all users
             <span v-if="$store.state.filter">
               by @{{ $store.state.filter }}
             </span>
           </h2>
         </div>
         <div class="right">
-          <GetFreetsForm
-            ref="getFreetsForm"
-            value="author"
-            placeholder="🔍 Filter by author (optional)"
-            button="🔄 Get freets"
+          <GetUsersForm
+            ref="getUsersForm"
+            value="username"
+            placeholder="🔍 Filter by username (optional)"
+            button="🔄 Get users"
           />
         </div>
       </header>
       <section
         v-if="$store.state.freets.length"
       >
-        <FreetComponent
-          v-for="freet in $store.state.freets"
-          :key="freet.id"
-          :freet="freet"
+        <UserComponent
+          v-for="user in $store.state.usersShown"
+          :key="user.username"
+          :user="user"
         />
       </section>
       <article
         v-else
       >
-        <h3>No freets found.</h3>
+        <h3>No users found.</h3>
       </article>
     </section>
   </main>
 </template>
+
+<script>
+import UserComponent from '@/components/Follow/UserComponent.vue';
+import GetUsersForm from '@/components/Follow/GetUsersForm.vue';
+
+export default {
+  name: 'DiscoveryPage',
+  components: {UserComponent, GetUsersForm},
+  mounted() {
+    this.$refs.GetUsersForm.submit();
+    //
+  }
+};
+</script>
+
+<style scoped>
+section {
+  display: flex;
+  flex-direction: column;
+}
+
+header, header > * {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button {
+    margin-right: 10px;
+}
+
+section .scrollbox {
+  flex: 1 0 50vh;
+  padding: 3%;
+  overflow-y: scroll;
+}
+</style>

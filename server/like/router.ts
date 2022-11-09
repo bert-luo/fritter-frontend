@@ -28,7 +28,6 @@ router.get(
  *
  * @name POST /api/like
  *
- * @param {string} content - The content of the freet
  * @return {FreetResponse} - The created freet
  * @throws {403} - If the user is not logged in
  * @throws {400} - If the freet content is empty or a stream of empty spaces
