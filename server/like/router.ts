@@ -34,11 +34,11 @@ router.get(
  * @throws {413} - If the freet content is more than 140 characters long
  */
 router.post(
-  '/',
+  '/:freetId?',
   [
     userValidator.isUserLoggedIn,
     likeValidator.isFreetExists,
-    likeValidator.isFreetLiked
+    likeValidator.isFreetNotLiked
   ],
   async (req: Request, res: Response) => {
     const userId = (req.session.userId as string) ?? ''; // Will not be an empty string since its validated in isUserLoggedIn
@@ -65,12 +65,12 @@ router.delete(
   [
     userValidator.isUserLoggedIn,
     likeValidator.isFreetExists,
-    likeValidator.isFreetNotLiked
+    likeValidator.isFreetLiked
   ],
   async (req: Request, res: Response) => {
     const userId = (req.session.userId as string) ?? ''; // Will not be an empty string since its validated in isUserLoggedIn
-    const like = await LikeCollection.addOne(req.params.freetId, userId);
-    const unlike = await LikeCollection.deleteOne(like._id);
+    //const like = await LikeCollection.addOne(req.params.freetId, userId);
+    const unlike = await LikeCollection.deleteOne(req.params.freetId, userId);
     res.status(200).json({
       message: 'You have successfully unliked this Freet.'
     });

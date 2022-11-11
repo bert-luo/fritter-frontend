@@ -9,6 +9,7 @@ import LikeCollection from './collection';
  */
 const isFreetExists = async (req: Request, res: Response, next: NextFunction) => {
   const freet = await FreetCollection.findOne(req.params.freetId);
+  console.log(req.params)
   if (!freet) {
     res.status(404).json({
       error: {

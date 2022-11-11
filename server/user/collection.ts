@@ -91,6 +91,16 @@ class UserCollection {
     const user = await UserModel.deleteOne({_id: userId});
     return user !== null;
   }
+
+  /**
+   * Get all users in system
+   *
+   * @return {Promise<HydratedDocument<User>> | Promise<null>} - The user with the given username, if any
+   */
+   static async findAllUsers(): Promise<Array<HydratedDocument<User>>> {
+    return UserModel.find({});
+  }
+
 }
 
 export default UserCollection;

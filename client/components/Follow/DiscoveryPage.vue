@@ -4,7 +4,10 @@
       <header>
         <h2>Welcome @{{ $store.state.username }}</h2>
       </header>
-      view vollowing button here maybe  
+        
+      <button>
+      View Following
+      </button>
     </section>
     <section v-else>
       <header>
@@ -67,7 +70,6 @@ export default {
   components: {UserComponent, GetUsersForm},
   mounted() {
     this.$refs.GetUsersForm.submit();
-    //
   }
 };
 </script>

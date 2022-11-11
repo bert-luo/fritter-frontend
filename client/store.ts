@@ -13,7 +13,8 @@ const store = new Vuex.Store({
     freets: [], // All freets created in the app
     username: null, // Username of the logged in user
     alerts: {}, // global success/error messages encountered during submissions to non-visible forms
-    likes: [], // indiciates which freets the user has liked 
+
+    likes: [], // indicates which freets the user has liked 
 
     userFilter: null, 
     usersShown: []
@@ -66,6 +67,13 @@ const store = new Vuex.Store({
        * @param freets - Freets to store
        */
       state.likes = likes;
+    },
+    addLike(state, like) {
+      /**
+       * Update the stored freets to the provided freets.
+       * @param freets - Freets to store
+       */
+      state.likes.push(like);
     },
     async refreshLikes(state) { //likes too
       /**

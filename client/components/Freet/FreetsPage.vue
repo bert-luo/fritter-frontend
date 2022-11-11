@@ -69,7 +69,6 @@ export default {
   components: {FreetComponent, GetFreetsForm, CreateFreetForm},
   mounted() {
     this.$refs.getFreetsForm.submit();
-    //
   }
 };
 </script>

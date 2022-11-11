@@ -29,6 +29,27 @@ router.get(
 );
 
 /**
+ * Get all users
+ *
+ * @name GET /api/users/session
+ *
+ * @return - currently logged in user, or null if not logged in
+ */
+ router.get(
+  '/',
+  [],
+  async (req: Request, res: Response) => {
+    const users = await UserCollection.findAllUsers();
+    res.status(200).json({
+      message: 'Your session info was found successfully.',
+      users: users
+    });
+  }
+);
+
+
+
+/**
  * Sign in user.
  *
  * @name POST /api/users/session

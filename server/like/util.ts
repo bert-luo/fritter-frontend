@@ -17,7 +17,7 @@ type LikeResponse = {
  * @param {HydratedDocument<Like>} like - A follow
  * @returns {LikeResponse} - The follow object formatted for the frontend
  */
-const constructLikeResponse = (like: HydratedDocument<Like>): LikeResponse => {
+const constructLikeResponse = (like: HydratedDocument<PopulatedLike>): LikeResponse => {
   const likeCopy: PopulatedLike = {
     ...like.toObject({
       versionKey: false // Cosmetics; prevents returning of __v property

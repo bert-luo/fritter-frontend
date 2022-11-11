@@ -1,5 +1,6 @@
 <template>
-    <section>
+    <section
+        v-if="loggedin">
         <button 
             v-if="!likedState"
             @click="likeFreet">
@@ -8,7 +9,7 @@
         <button 
             v-if="likedState"
             @click="unlikeFreet">
-            :( unlike
+            :/ unlike
         </button>
         
         {{ numLikesState }}
@@ -36,11 +37,17 @@ export default {
     }
   },
 
-
+mounted() {
+    console.log('numlikes: ', this.numLikesState)
+    if (this.$store.state.username){
+      this.loggedin = true;
+    }
+}, 
 data() {
     return {
       likedState: this.liked, //liked, // whether freet has been liked by current user 
-      numLikesState: this.numLikes //numLikes //allLikes.length // total number of likes on post 
+      numLikesState: this.numLikes, //numLikes //allLikes.length // total number of likes on post 
+      loggedin: false
     };
   },
 
@@ -62,7 +69,10 @@ data() {
                 }
             };
         this.request(params);
+        // this.$store.commit("addLike", likes.result[0]);
+        // console.log('store: ', this.$store.state.likes);
 
+        // add to store 
     },
     unlikeFreet(){
       /**
@@ -81,7 +91,7 @@ data() {
                 }
             };
         this.request(params);
-
+        //remove like from store 
     },
 
     async request(params) {

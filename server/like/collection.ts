@@ -1,5 +1,5 @@
 import type {HydratedDocument, Types} from 'mongoose';
-import type {Like} from './model';
+import type {Like, PopulatedLike} from './model';
 import LikeModel from './model';
 
 import UserCollection from '../user/collection';
@@ -30,18 +30,18 @@ class LikeCollection {
    * @param {string} userId - The id of the content of the freet
    * @return {Promise<HydratedDocument<Like>>} - The newly created freet
    */
-  static async addOne(freetId: Types.ObjectId | string, userId: string): Promise<HydratedDocument<Like>> {
-    const user = await UserCollection.findOneByUserId(userId);
-    const freet = await FreetCollection.findOne(freetId);
+  static async addOne(freetId: Types.ObjectId | string, userId: string): Promise<HydratedDocument<PopulatedLike>> {
+    //const user = await UserCollection.findOneByUserId(userId);
+    //const freet = await FreetCollection.findOne(freetId);
     const date = new Date();
 
     const newLike = new LikeModel({
-      user: user, 
-      parentPost: freet, 
+      user: userId, 
+      parentPost: freetId, 
       dateLiked: date
     });
-    await freet.save(); // Saves freet to MongoDB
-    return freet.populate('authorId');
+    await newLike.save(); // Saves freet to MongoDB
+    return newLike.populate('user', 'parentPost');
   }
 
   /**
@@ -50,7 +50,7 @@ class LikeCollection {
    * @param {string} likeId - The id of the freet to find
    * @return {Promise<HydratedDocument<Like>> | Promise<null> } - The freet with the given freetId, if any
    */
-  static async findOneById(likeId: Types.ObjectId | string): Promise<HydratedDocument<Like>> {
+  static async findOneById(likeId: Types.ObjectId | string): Promise<HydratedDocument<PopulatedLike>> {
     return LikeModel.findOne({_id: likeId}).populate('user','parentPost','dateLiked');
   }
 
@@ -61,10 +61,10 @@ class LikeCollection {
    * @param {string} userId - The id of the user that liked the Freet
    * @return {Promise<HydratedDocument<Like>> | Promise<null> } - The freet with the given freetId, if any
    */
-   static async findOne(freetId: Types.ObjectId | string, userId: Types.ObjectId | string): Promise<HydratedDocument<Like>> {
+   static async findOne(freetId: Types.ObjectId | string, userId: Types.ObjectId | string): Promise<HydratedDocument<PopulatedLike>> {
     const freet = FreetCollection.findOne(freetId); 
     const user = UserCollection.findOneByUserId(userId);
-    return LikeModel.findOne({parentPost: freet, user: user}).populate('user','parentPost','dateLiked');
+    return LikeModel.findOne({parentPost: freetId, user: userId}).populate('user','parentPost');
   }
 
   /**
@@ -73,7 +73,7 @@ class LikeCollection {
    * @param {string} freetId - The id of the Freet that was liked
    * @return {Promise<HydratedDocument<Like>> | Promise<null> } - The freet with the given freetId, if any
    */
- static async findAll(freetId: Types.ObjectId | string): Promise<Array<HydratedDocument<Like>>> {
+ static async findAll(freetId: Types.ObjectId | string): Promise<Array<HydratedDocument<PopulatedLike>>> {
   const freet = FreetCollection.findOne(freetId); 
   return LikeModel.find({parentPost: freetId}).populate('user');
 }
@@ -84,8 +84,8 @@ class LikeCollection {
    * @param {string} likeId - The freetId of freet to delete
    * @return {Promise<Boolean>} - true if the freet has been deleted, false otherwise
    */
-   static async deleteOne(likeId: Types.ObjectId | string): Promise<boolean> {
-    const like = await LikeModel.deleteOne({_id: likeId});
+   static async deleteOne(freetId: Types.ObjectId | string, userId: Types.ObjectId | string): Promise<boolean> {
+    const like = await LikeModel.deleteOne({parentPost: freetId, user: userId});
     return like !== null;
   }
 

@@ -55,7 +55,6 @@
 
      <section class="footer">
         <InteractionBar
-            
             :freetId="freet._id"
             :liked="liked"
             :numLikes="numLikes"
@@ -91,13 +90,16 @@ export default {
     }
   },
   async mounted(){ // make fetches here
-    await Promise.all([this.getLikes()]);
+    if (this.$store.state.username){
+      await Promise.all([this.getLikes()]);
+    }
   }, 
 
   data() {
     return {
       liked: false, // whether freet has been liked by current user 
-      numLikes: 0, 
+      numLikes: 0, // number of likes to display on Freet 
+
       editing: false, // Whether or not this freet is in edit mode
       draft: this.freet.content, // Potentially-new content for this freet
       alerts: {} // Displays success/error messages encountered during freet modification
@@ -108,12 +110,14 @@ export default {
       /**
        * Retrieve number of likes on Freet and if the user has liked the freet yet
        */
+      console.log('likes got');
       const url = `/api/likes/${this.freet._id}`;
       const likes = await fetch(url).then(async r => r.json());
       console.log(likes);
-      //this.$store.commit("method", likes)
-      this.numLikes = likes.length;
-      this.liked = false; //this.$store.state.username && likes.result.some((likeId) => like.username == this.$store.state.username);
+
+      this.numLikes = likes.result.length;
+      this.liked = this.$store.state.username && likes.result.some((like) => like.user.username == this.$store.state.username);
+      //console.log(this.liked);
     }, 
 
     startEditing() {
